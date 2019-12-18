@@ -7,5 +7,3 @@ stores
   |_ warehouses
        |_ products
 ```
-
-delete me
