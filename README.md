@@ -2,4 +2,4 @@
 
 store
 |_ warehouse
-|_ products
+    |_ products
