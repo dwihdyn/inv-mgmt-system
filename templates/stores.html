@@ -1,11 +1,19 @@
 {% extends "_layout.html" %} {% block ExtContent %}
 <h1>Stores</h1>
-<table>
+<table class="table">
+  <!-- table header -->
   <tr>
     <th>Store Name</th>
     <th>Number of Warehouses</th>
     <th></th>
   </tr>
+
+  <!-- table content -->
+  {% for store in stores %}
+  <tr>
+    <td>{{store.name}}</td>
+  </tr>
+  {% endfor %}
 </table>
 
 {% endblock %}
