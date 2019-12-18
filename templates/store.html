@@ -2,10 +2,10 @@
 <h1>Create new store</h1>
 
 <!-- take user input to `store_create` function -->
-<form action="{{ url_for('store_create') }}">
+<form action="{{ url_for('store_create') }}" method="POST">
   <div class="form-group">
-    <label for="new_store_name">Enter new store name : </label>
-    <input type="text" class="form-control" name="new_store_name" />
+    <label for="name">Enter new store name : </label>
+    <input type="text" class="form-control" name="name" />
   </div>
 
   <button class="btn btn-primary" type="submit">Submit</button>

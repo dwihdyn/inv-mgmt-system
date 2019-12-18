@@ -1,9 +1,11 @@
+# import os
 import peeweedbevolve
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Store, Warehouse, Product
 
 
 app = Flask(__name__)
+# app.secret_key = os.getenv('APP_SECRET_KEY')
 
 @app.before_request
 def before_request():
@@ -33,9 +35,16 @@ def store_new():
 
 @app.route("/store/create", methods=['POST'])
 def store_create():
-    new_st = Store(name=request.args['new_store_name'])
+    new_st = Store(name=request.form['name'])
+    
     new_st.save()
-    return redirect(url_for('index'))
+    return redirect(url_for('stores_list'))
+    # if new_st.save():
+    #     flash("New store successfully created!", "success")
+    #     return redirect(url_for(stores_list))
+    # else:
+    #     flash("Something went wrong, please try again", "danger")
+    #     return render_template('store.html', name=request.form['name'])
 
 
 @app.route("/stores", methods=['GET'])
@@ -43,6 +52,12 @@ def stores_list():
     # create column called 'num' to count how many warehouse is under the given store
     stores = Store.select()
     return render_template('stores.html', stores=stores)
+
+@app.route("/store/<int:id>/delete", methods=['POST'])
+def store_delete(id):
+    s = Store.get_by_id(id)
+    s.delete_instance()
+    return redirect(url_for('stores_list'))
 
 
 if __name__ == "__main__":
