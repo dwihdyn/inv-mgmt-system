@@ -1,0 +1,14 @@
+{% extends "_layout.html" %} {% block ExtContent%}
+<h1>Create new store</h1>
+
+<!-- take user input to `store_create` function -->
+<form action="{{ url_for('store_create') }}">
+  <div class="form-group">
+    <label for="new_store_name">Enter new store name : </label>
+    <input type="text" class="form-control" name="new_store_name" />
+  </div>
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+{% endblock %}
