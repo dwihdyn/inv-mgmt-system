@@ -1,5 +1,8 @@
 ## Inventory Management System
 
-store
-|_ warehouse
-    |_ products
+### Database structure
+```
+stores
+  |_ warehouses
+       |_ products
+```
