@@ -37,13 +37,16 @@ def store_new():
 def store_create():
     new_st = Store(name=request.form['name'])
     
-    # new_st.save()
-    # return redirect(url_for('stores_list'))
-    if new_st.save():
-        flash("New store successfully created!", "success")
-        return redirect(url_for('stores_list'))
+    if not Store.get_or_none(Store.name == new_st.name):
+        breakpoint()
+        if new_st.save():
+            flash("New store successfully created!", "success")
+            return redirect(url_for('stores_list'))
+        else:
+            flash("Something went wrong, please try again", "danger")
+            return render_template('store.html', name=request.form['name'])
     else:
-        flash("Something went wrong, please try again", "danger")
+        flash("Store has aready existed", "danger")
         return render_template('store.html', name=request.form['name'])
 
 
@@ -56,7 +59,7 @@ def stores_list():
 @app.route("/store/<int:id>/delete", methods=['POST'])
 def store_delete(id):
     s = Store.get_by_id(id)
-    s.delete_instance()
+    s.delete_instance() # delete_instance to delete all of the warehouses & products inside it
     return redirect(url_for('stores_list'))
 
 
