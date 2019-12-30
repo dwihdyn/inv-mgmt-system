@@ -26,42 +26,65 @@ def index():
     return render_template("index.html")
 
 
-# ====================== STORE ======================
+# ====================== STORE CRUD ======================
 
+# create
 @app.route('/store/new', methods=['GET'])
 def store_new():
     return render_template('store.html')
-
 
 @app.route("/store/create", methods=['POST'])
 def store_create():
     new_st = Store(name=request.form['name'])
     
     if not Store.get_or_none(Store.name == new_st.name):
-        breakpoint()
         if new_st.save():
             flash("New store successfully created!", "success")
             return redirect(url_for('stores_list'))
         else:
-            flash("Something went wrong, please try again", "danger")
+            flash("Something went wrong, please check your internet and try again", "danger")
             return render_template('store.html', name=request.form['name'])
     else:
-        flash("Store has aready existed", "danger")
+        flash("Store has already existed", "danger")
         return render_template('store.html', name=request.form['name'])
 
 
+# read
 @app.route("/stores", methods=['GET'])
 def stores_list():
     # create column called 'num' to count how many warehouse is under the given store
     stores = Store.select()
     return render_template('stores.html', stores=stores)
 
+
+# delete
 @app.route("/store/<int:id>/delete", methods=['POST'])
 def store_delete(id):
-    s = Store.get_by_id(id)
-    s.delete_instance() # delete_instance to delete all of the warehouses & products inside it
+    del_st = Store.get_by_id(id)
+    if del_st.delete_instance():
+        flash('Successfully deleted!', 'success')
+    else:
+        flash('Something went wrong, check your internet and try again', 'danger')
+    
     return redirect(url_for('stores_list'))
 
+
+# update
+@app.route('/store/<int:id>', methods=['GET'])
+def store_show(id):
+    sel_st = Store.get_by_id(id)
+    return render_template('store_show.html', sel_st=sel_st)
+
+@app.route('/store/<int:id>/update', methods=['POST'])
+def store_update(id):
+    # not getting the id will lead to creating new data
+    updated_st = Store(id=id, name=request.form['name'])
+    if updated_st.save(only=[Store.name]):
+        flash("Successfully updated!", 'success')
+    else:
+        flash("Something went wrong, check your internet and try again", 'danger')
+
+    return redirect(url_for('store_show', id=id))
 
 if __name__ == "__main__":
     app.run()
