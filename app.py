@@ -26,7 +26,7 @@ def index():
     return render_template("index.html")
 
 
-# ====================== STORE CRUD ======================
+# ====================== STORE ======================
 
 # create
 @app.route('/store/new', methods=['GET'])
@@ -61,13 +61,22 @@ def stores_list():
 @app.route("/store/<int:id>/delete", methods=['POST'])
 def store_delete(id):
     del_st = Store.get_by_id(id)
-    if del_st.delete_instance():
-        flash('Successfully deleted!', 'success')
-    else:
-        flash('Something went wrong, check your internet and try again', 'danger')
-    
-    return redirect(url_for('stores_list'))
+    wh_checking = Warehouse.get_or_none(Warehouse.store_id == del_st)
 
+    if not input("This will delete all of the warehouses that are under this store, enter Y to proceed") != "Y":
+
+        if wh_checking:
+            wh_checking.delete().execute()
+
+        if del_st.delete_instance():
+            flash('Successfully deleted!', 'success')
+        else:
+            flash('Something went wrong, check your internet and try again', 'danger')
+        
+        return redirect(url_for('stores_list'))
+
+    else:
+        exit()
 
 # update
 @app.route('/store/<int:id>', methods=['GET'])
@@ -85,6 +94,39 @@ def store_update(id):
         flash("Something went wrong, check your internet and try again", 'danger')
 
     return redirect(url_for('store_show', id=id))
+
+
+# ====================== WAREHOUSE ======================
+
+# create
+@app.route('/warehouse/new', methods=['GET'])
+def warehouse_new():
+    stores = Store.select()
+    return render_template('warehouse.html', stores=stores)
+
+
+@app.route('/warehouse/create', methods=['POST'])
+def warehouse_create():
+    connected_st = Store.get_or_none(Store.id == request.form['store_id'])
+    new_wh = Warehouse(location=request.form['location'], store=connected_st)
+    if new_wh.save():
+        flash('Warehouse Successfully created!', "success")
+        return redirect(url_for('warehouses_list'))
+    else:
+        flash('Please check your internet connection and try again', 'danger')
+        return render_template('warehouse.html')
+
+# read
+@app.route('/warehouses', methods=['GET'])
+def warehouses_list():
+    warehouses = Warehouse.select()
+    return render_template('warehouses.html', warehouses = warehouses)
+
+# delete
+
+# update
+
+
 
 if __name__ == "__main__":
     app.run()

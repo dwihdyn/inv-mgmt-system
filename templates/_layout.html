@@ -39,6 +39,7 @@
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
+
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -51,6 +52,7 @@
             >
               Stores
             </a>
+
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ url_for('store_new') }}"
                 >Create New Store</a
@@ -58,6 +60,29 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ url_for('stores_list') }}"
                 >Show All Stores</a
+              >
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Warehouses
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('warehouse_new') }}"
+                >Create New Warehouse</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url_for('warehouses_list') }}"
+                >Show All Warehouse</a
               >
             </div>
           </li>
