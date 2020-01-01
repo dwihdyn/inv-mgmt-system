@@ -1,0 +1,15 @@
+{% extends "_layout.html" %} {% block ExtContent %}
+<h1>Update {{sel_st.name}} informations</h1>
+<form action="{{url_for('store_update', id=sel_st.id)}}" method="POST">
+  <div class="form-group">
+    <label for="name">Store Name:</label>
+    <input
+      type="text"
+      name="name"
+      class="form-control"
+      value="{{sel_st.name}}"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Update Info</button>
+</form>
+{%endblock%}

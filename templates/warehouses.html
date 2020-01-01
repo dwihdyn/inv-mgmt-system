@@ -1,0 +1,26 @@
+{% extends "_layout.html" %} {% block ExtContent %}
+<h1>Warehouses</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Warehouse name</th>
+      <th scope="col">Number of products</th>
+      <th scope="col">Name of Store</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for warehouse in warehouses %}
+    <tr>
+      <td>{{warehouse.location}}</td>
+      <td>{{warehouse.id}}</td>
+      <td>{{warehouse.store.name}}</td>
+      <td>
+        <form>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
