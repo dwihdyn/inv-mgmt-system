@@ -1,3 +1,11 @@
+'''
+if you wish to repopulate, due to product depend on warehouse ID & warehouse depend on store ID must restart the database by:
+    `dropdb inv_mgmt_flask_demo`
+    `createdb inv_mgmt_flask_demo`
+    `flask migrate`
+    `python seed.py`
+'''
+
 import os
 
 os.environ['MIGRATION'] = '1'
