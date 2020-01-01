@@ -65,7 +65,7 @@ def store_delete(id):
     # breakpoint()
 
     if wh_checking:
-        wh_checking.delete().execute()
+        wh_checking.delete().where(Warehouse.store_id == wh_checking.store_id).execute()
 
     if del_st.delete_instance():
         flash('Successfully deleted!', 'success')

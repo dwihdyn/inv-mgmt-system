@@ -1,9 +1,7 @@
 import os
 import peewee as pw
 import datetime
-from playhouse.postgres_ext import PostgresqlExtDatabase
-
-db = PostgresqlExtDatabase(os.getenv('DATABASE'))
+from database import db
 
 
 class BaseModel(pw.Model):
