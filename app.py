@@ -63,20 +63,15 @@ def store_delete(id):
     del_st = Store.get_by_id(id)
     wh_checking = Warehouse.get_or_none(Warehouse.store_id == del_st)
 
-    if not input("This will delete all of the warehouses that are under this store, enter Y to proceed") != "Y":
+    if wh_checking:
+        wh_checking.delete().execute()
 
-        if wh_checking:
-            wh_checking.delete().execute()
-
-        if del_st.delete_instance():
-            flash('Successfully deleted!', 'success')
-        else:
-            flash('Something went wrong, check your internet and try again', 'danger')
-        
-        return redirect(url_for('stores_list'))
-
+    if del_st.delete_instance():
+        flash('Successfully deleted!', 'success')
     else:
-        exit()
+        flash('Something went wrong, check your internet and try again', 'danger')
+    
+    return redirect(url_for('stores_list'))
 
 # update
 @app.route('/store/<int:id>', methods=['GET'])

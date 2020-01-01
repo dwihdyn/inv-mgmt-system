@@ -1,5 +1,6 @@
 {% extends "_layout.html" %} {% block ExtContent %}
 <h1>Stores</h1>
+
 <table class="table">
   <!-- table header -->
   <tr>
@@ -14,9 +15,64 @@
     <td><a href="{{url_for('store_show', id=store.id)}}">{{store.name}}</a></td>
     <td>{{store.id}}</td>
     <td>
-      <form action="{{url_for('store_delete', id=store.id)}}" method="POST">
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
+      <!-- Button trigger modal pop-up -->
+      <button
+        type="button"
+        class="btn btn-danger"
+        data-toggle="modal"
+        data-target="#exampleModal"
+      >
+        Delete
+      </button>
+
+      <!-- Modal pop-up -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Heads up!</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>
+                This will delete all of the warehouses and the products under
+                this store. Proceed ?
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <form
+                action="{{url_for('store_delete', id=store.id)}}"
+                method="POST"
+              >
+                <button type="submit" class="btn btn-primary">
+                  Proceed
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </td>
   </tr>
   {% endfor %}
