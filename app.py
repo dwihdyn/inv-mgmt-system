@@ -62,6 +62,7 @@ def stores_list():
 def store_delete(id):
     del_st = Store.get_by_id(id)
     wh_checking = Warehouse.get_or_none(Warehouse.store_id == del_st)
+    # breakpoint()
 
     if wh_checking:
         wh_checking.delete().execute()
