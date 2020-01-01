@@ -1,1 +1,1 @@
-web: python migrate.py; python seed.py; gunicorn app:app --preload
+web: python migrate.py; gunicorn app:app --preload

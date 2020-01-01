@@ -15,17 +15,12 @@
     <td><a href="{{url_for('store_show', id=store.id)}}">{{store.name}}</a></td>
     <td>{{store.id}}</td>
     <td>
-      <form action="{{url_for('store_delete',id=store.id)}}" method="POST">
-        <button type="submit" class="btn btn-warning">Delete</button>
-      </form>
-    </td>
-    <td>
       <!-- Button trigger modal pop-up -->
       <button
         type="button"
         class="btn btn-danger"
         data-toggle="modal"
-        data-target="#exampleModal"
+        data-target="#selectedStore-{{store.id}}"
       >
         Delete
       </button>
@@ -33,15 +28,15 @@
       <!-- Modal pop-up -->
       <div
         class="modal fade"
-        id="exampleModal"
+        id="selectedStore-{{store.id}}"
         role="dialog"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="selectedStoreLabel"
         aria-hidden="true"
       >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Heads up!</h5>
+              <h5 class="modal-title" id="selectedStoreLabel">Heads up!</h5>
               <button
                 type="button"
                 class="close"
