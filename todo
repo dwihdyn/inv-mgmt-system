@@ -1,6 +1,7 @@
 Notes :
 - secret_key needed to use flash messages
 - seed used for development/testing app only, it has NO purpose for production
+- heroku database need to be updated issue -> delete procfile -> google `dropdb in heroku` -> do step 1 & 2 -> add back procfile
 
 
 
