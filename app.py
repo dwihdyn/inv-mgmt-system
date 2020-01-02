@@ -93,7 +93,7 @@ def store_update(id):
     else:
         flash("Something went wrong, check your internet and try again", 'danger')
 
-    return redirect(url_for('store_show', id=id))
+    return redirect(url_for('store_show', id=id)) # return back to store_show.html with the selected store_id
 
 
 # ====================== WAREHOUSE ======================
@@ -145,24 +145,20 @@ def warehouse_show(id):
     sel_wh = Warehouse.get_by_id(id)
     return render_template('warehouse_show.html', sel_wh=sel_wh)
 
+@app.route('/warehouse/<int:id>/update', methods=['POST'])
+def warehouse_update(id):
+    updated_wh = Warehouse(warehouse_id=id, location=request.form['location'])
+    if updated_wh.save(only=[Warehouse.location]):
+        flash("Successfully updated!", 'success')
+    else:
+        flash("Something went wrong, check your internet and try again", 'danger')
+    return redirect(url_for('warehouse_show', id=id))
 
 
 
-# @app.route('/store/<int:id>', methods=['GET'])
-# def store_show(id):
-#     sel_st = Store.get_by_id(id)
-#     return render_template('store_show.html', sel_st=sel_st)
 
-# @app.route('/store/<int:id>/update', methods=['POST'])
-# def store_update(id):
-#     # not getting the id will lead to creating new data
-#     updated_st = Store(store_id=id, name=request.form['name'])
-#     if updated_st.save(only=[Store.name]):
-#         flash("Successfully updated!", 'success')
-#     else:
-#         flash("Something went wrong, check your internet and try again", 'danger')
 
-#     return redirect(url_for('store_show', id=id))
+
 
 
 
