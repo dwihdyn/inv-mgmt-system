@@ -2,6 +2,7 @@ import os
 import peeweedbevolve
 from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Store, Warehouse, Product
+from peewee import fn, JOIN
 
 
 app = Flask(__name__)
@@ -53,7 +54,10 @@ def store_create():
 @app.route("/stores", methods=['GET'])
 def stores_list():
     # create column called 'num' to count how many warehouse is under the given store
-    stores = Store.select()
+    stores = Store.select(Store.name, Store.store_id, fn.COUNT(Warehouse.store_id).alias('count')
+    ).join(Warehouse, JOIN.LEFT_OUTER
+    ).group_by(Store.store_id
+    ).order_by(Store.name)
     return render_template('stores.html', stores=stores)
 
 
