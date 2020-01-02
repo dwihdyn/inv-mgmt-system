@@ -11,3 +11,7 @@ Wishlist :
 - in product_show.html, show the warehouse & store parent
 - stores.html , warehouses.html, products.html ordered by number of warehouse, products, quantity of products respectively
 - bootstrap validation on all creating new store, warehouse, product.html
+
+
+
+web: python migrate.py; gunicorn app:app --preload
