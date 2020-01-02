@@ -1,15 +1,6 @@
 Notes :
 - secret_key needed to use flash messages
-
-
-Todo :
-- secret_key setup
-- flash message
-- find another way to delete, beside delete_instance()
-
-
-
-
+- seed used for development/testing app only, it has NO purpose for production
 
 
 

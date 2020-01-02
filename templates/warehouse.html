@@ -9,7 +9,7 @@
     <select class="form-control form-control-sm" name="store_id">
       <option disabled selected> -Select a store- </option>
       {% for store in stores %}
-      <option value="{{store.id}}">{{store.name}}</option>
+      <option value="{{store.store_id}}">{{store.name}}</option>
       {% endfor %}
     </select>
   </div>

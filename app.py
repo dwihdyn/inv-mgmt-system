@@ -62,7 +62,6 @@ def stores_list():
 def store_delete(id):
     del_st = Store.get_by_id(id)
     wh_checking = Warehouse.get_or_none(Warehouse.store_id == del_st)
-    # breakpoint()
 
     if wh_checking:
         wh_checking.delete().where(Warehouse.store_id == wh_checking.store_id).execute()
@@ -74,6 +73,7 @@ def store_delete(id):
     
     return redirect(url_for('stores_list'))
 
+
 # update
 @app.route('/store/<int:id>', methods=['GET'])
 def store_show(id):
@@ -83,7 +83,7 @@ def store_show(id):
 @app.route('/store/<int:id>/update', methods=['POST'])
 def store_update(id):
     # not getting the id will lead to creating new data
-    updated_st = Store(id=id, name=request.form['name'])
+    updated_st = Store(store_id=id, name=request.form['name'])
     if updated_st.save(only=[Store.name]):
         flash("Successfully updated!", 'success')
     else:
@@ -103,7 +103,7 @@ def warehouse_new():
 
 @app.route('/warehouse/create', methods=['POST'])
 def warehouse_create():
-    connected_st = Store.get_or_none(Store.id == request.form['store_id'])
+    connected_st = Store.get_or_none(Store.store_id == request.form['store_id'])
     new_wh = Warehouse(location=request.form['location'], store=connected_st)
     if new_wh.save():
         flash('Warehouse Successfully created!', "success")

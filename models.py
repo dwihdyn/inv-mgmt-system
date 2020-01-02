@@ -19,15 +19,18 @@ class BaseModel(pw.Model):
 
 
 class Store(BaseModel):
+    store_id = pw.AutoField()
     name = pw.CharField(unique=True)
 
 
 class Warehouse(BaseModel):
+    warehouse_id = pw.AutoField()
     location = pw.TextField()
     store = pw.ForeignKeyField(Store, backref='sel_wh')
 
 
 class Product(BaseModel):
+    product_id = pw.AutoField()
     name = pw.CharField(index=True)
     desciption = pw.TextField()
     color = pw.CharField(null=True)
