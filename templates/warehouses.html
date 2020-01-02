@@ -16,7 +16,7 @@
           >{{warehouse.location}}</a
         >
       </td>
-      <td>{{warehouse.warehouse_id}}</td>
+      <td>{{warehouse.count}}</td>
       <td>{{warehouse.store.name}}</td>
 
       <td>
@@ -25,7 +25,7 @@
           type="button"
           class="btn btn-danger"
           data-toggle="modal"
-          data-target="#selectedStore-{{warehouse.warehouse_id}}"
+          data-target="#selectedWh-{{warehouse.warehouse_id}}"
         >
           Delete
         </button>
@@ -33,15 +33,17 @@
         <!-- Modal pop-up -->
         <div
           class="modal fade"
-          id="selectedStore-{{warehouse.warehouse_id}}"
+          id="selectedWh-{{warehouse.warehouse_id}}"
           role="dialog"
-          aria-labelledby="selectedStoreLabel"
+          aria-labelledby="selectedWhLabel"
           aria-hidden="true"
         >
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="selectedStoreLabel">Heads up!</h5>
+                <h5 class="modal-title" id="selectedWhLabel">
+                  Heads up!
+                </h5>
                 <button
                   type="button"
                   class="close"

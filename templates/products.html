@@ -1,5 +1,84 @@
-{% extends '_layout.html' %} {% block ExtContent %}
-<h1>
-  ALL new product
-</h1>
+{% extends "_layout.html" %} {% block ExtContent %}
+<h1>Products</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product location</th>
+
+      <th scope="col">Name of Store</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>
+        <a href="{{url_for('product_show', id=product.product_id)}}"
+          >{{product.name}}</a
+        >
+      </td>
+      <td>{{product.warehouse.location}}</td>
+
+      <td>
+        <!-- Button trigger modal pop-up -->
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-toggle="modal"
+          data-target="#selectedProd-{{product.product_id}}"
+        >
+          Delete
+        </button>
+
+        <!-- Modal pop-up -->
+        <div
+          class="modal fade"
+          id="selectedProd-{{product.product_id}}"
+          role="dialog"
+          aria-labelledby="selectedProdLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="selectedProdLabel">Heads up!</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  You can't undo this. Proceed ?
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+
+                <form
+                  action="{{url_for('product_delete', id=product.product_id)}}"
+                  method="POST"
+                >
+                  <button type="submit" class="btn btn-danger">
+                    Proceed
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

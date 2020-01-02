@@ -130,8 +130,14 @@ def warehouse_create():
 # read
 @app.route('/warehouses', methods=['GET'])
 def warehouses_list():
-    warehouses = Warehouse.select()
+    warehouses = Warehouse.select(Warehouse.location, Warehouse.warehouse_id, Warehouse.store ,  fn.COUNT(Product.warehouse_id).alias('count')
+    ).join(Product, JOIN.LEFT_OUTER
+    ).group_by(Warehouse.warehouse_id
+    ).order_by(Warehouse.location)
+    # warehouses = Warehouse.select()
     return render_template('warehouses.html', warehouses = warehouses)
+
+
 
 # delete
 @app.route('/warehouse/<int:id>/delete', methods=['POST'])
@@ -204,20 +210,40 @@ def products_list():
     products = Product.select()
     return render_template('products.html', products = products)
 
+
+
+
 # delete
+@app.route('/product/<int:id>/delete', methods=['POST'])
+def product_delete(id):
+    del_prod = Product.get_by_id(id)
+    
+    if del_prod.delete_instance():
+        flash('Successfully deleted!', 'success')
+    else:
+        flash('Something went wrong, check your internet and try again', 'danger')
+
+    return redirect(url_for('products_list'))
+
 
 # update
+@app.route('/product/<int:id>', methods=['GET'])
+def product_show(id):
+    sel_prod = Product.get_by_id(id)
+    return render_template('product_show.html', sel_prod=sel_prod)
+
+@app.route('/product/<int:id>/update', methods=['POST'])
+def product_update(id):
+    updated_prod = Product(product_id=id, name=request.form['name'])
+    if updated_prod.save(only=[Product.name]):
+        flash("Successfully updated!", 'success')
+    else:
+        flash("Something went wrong, check your internet and try again", 'danger')
+    return redirect(url_for('product_show', id=id))
 
 
 
 
-
-
-# # read
-# @app.route('/warehouses', methods=['GET'])
-# def warehouses_list():
-#     warehouses = Warehouse.select()
-#     return render_template('warehouses.html', warehouses = warehouses)
 
 
 if __name__ == "__main__":
