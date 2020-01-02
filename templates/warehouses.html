@@ -11,7 +11,11 @@
   <tbody>
     {% for warehouse in warehouses %}
     <tr>
-      <td>{{warehouse.location}}</td>
+      <td>
+        <a href="{{url_for('warehouse_show', id=warehouse.warehouse_id)}}"
+          >{{warehouse.location}}</a
+        >
+      </td>
       <td>{{warehouse.warehouse_id}}</td>
       <td>{{warehouse.store.name}}</td>
 

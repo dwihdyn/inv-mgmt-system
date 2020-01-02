@@ -140,6 +140,30 @@ def warehouse_delete(id):
 
 
 # update
+@app.route('/warehouse/<int:id>', methods=['GET'])
+def warehouse_show(id):
+    sel_wh = Warehouse.get_by_id(id)
+    return render_template('warehouse_show.html', sel_wh=sel_wh)
+
+
+
+
+# @app.route('/store/<int:id>', methods=['GET'])
+# def store_show(id):
+#     sel_st = Store.get_by_id(id)
+#     return render_template('store_show.html', sel_st=sel_st)
+
+# @app.route('/store/<int:id>/update', methods=['POST'])
+# def store_update(id):
+#     # not getting the id will lead to creating new data
+#     updated_st = Store(store_id=id, name=request.form['name'])
+#     if updated_st.save(only=[Store.name]):
+#         flash("Successfully updated!", 'success')
+#     else:
+#         flash("Something went wrong, check your internet and try again", 'danger')
+
+#     return redirect(url_for('store_show', id=id))
+
 
 
 
