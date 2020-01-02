@@ -14,10 +14,66 @@
       <td>{{warehouse.location}}</td>
       <td>{{warehouse.warehouse_id}}</td>
       <td>{{warehouse.store.name}}</td>
+
       <td>
-        <form>
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        <!-- Button trigger modal pop-up -->
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-toggle="modal"
+          data-target="#selectedStore-{{warehouse.warehouse_id}}"
+        >
+          Delete
+        </button>
+
+        <!-- Modal pop-up -->
+        <div
+          class="modal fade"
+          id="selectedStore-{{warehouse.warehouse_id}}"
+          role="dialog"
+          aria-labelledby="selectedStoreLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="selectedStoreLabel">Heads up!</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  This will delete all of the products under this warehouse.
+                  Proceed ?
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+
+                <form
+                  action="{{url_for('warehouse_delete', id=warehouse.warehouse_id)}}"
+                  method="POST"
+                >
+                  <button type="submit" class="btn btn-danger">
+                    Proceed
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
     {% endfor %}

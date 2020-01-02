@@ -123,6 +123,21 @@ def warehouses_list():
     return render_template('warehouses.html', warehouses = warehouses)
 
 # delete
+@app.route('/warehouse/<int:id>/delete', methods=['POST'])
+def warehouse_delete(id):
+    del_wh = Warehouse.get_by_id(id)
+    prod_checking = Product.get_or_none(Product.warehouse_id == del_wh)
+
+    if prod_checking:
+        prod_checking.delete().where(Product.warehouse_id == prod_checking.warehouse_id).execute()
+    
+    if del_wh.delete_instance():
+        flash('Successfully deleted!', 'success')
+    else:
+        flash('Something went wrong, check your internet and try again', 'danger')
+
+    return redirect(url_for('warehouses_list'))
+
 
 # update
 
