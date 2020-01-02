@@ -1,6 +1,6 @@
 ## Inventory Management System
 
-##### MVP done. See todo file to see what and how can be improved further
+##### MVP done. See <a href="https://github.com/dwihdyn/inv-mgmt-system/blob/master/todo">todo wishlist</a> file to see what and how can be improved further
 
 ### Database structure
 
