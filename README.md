@@ -1,5 +1,7 @@
 ## Inventory Management System
 
+##### MVP done. See todo file to see what and how can be improved further
+
 ### Database structure
 
 ```

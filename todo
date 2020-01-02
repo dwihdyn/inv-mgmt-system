@@ -2,19 +2,12 @@ Notes :
 - secret_key needed to use flash messages
 - seed used for development/testing app only, it has NO purpose for production
 
-todo :
-- in warehouses.html, 'name of store' link back store_show.html, and shows list of warehouses
+
 
 Wishlist :
 - proper seed data, run one time only
-- in store_show.html , shows products under that store 
+- in warehouses.html, 'name of store' link back store_show.html, and shows list of warehouses & products under that store
 - in warehouse_show.html, show list of products under that store & the parent store
 - in product_show.html, show the warehouse & store parent
 - stores.html , warehouses.html, products.html ordered by number of warehouse, products, quantity of products respectively
 - bootstrap validation on all creating new store, warehouse, product.html
-
-
-
-
-
- web: python migrate.py; gunicorn app:app --preload
