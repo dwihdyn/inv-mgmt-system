@@ -63,6 +63,7 @@
               >
             </div>
           </li>
+
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -83,6 +84,30 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ url_for('warehouses_list') }}"
                 >Show All Warehouse</a
+              >
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Products
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ url_for('product_new') }}"
+                >Create New Product</a
+              >
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url_for('products_list') }}"
+                >Show All Product</a
               >
             </div>
           </li>

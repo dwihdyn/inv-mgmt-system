@@ -1,0 +1,27 @@
+{% extends "_layout.html" %} {% block ExtContent %}
+<h1>Create new product</h1>
+
+<form action="{{ url_for('product_create') }}" method="POST">
+  <div class="form-group">
+    <label for="name"> Product name : </label>
+    <input type="text" class="form-control" name="name" />
+    <br />
+
+    <label for="description"> Description : </label>
+    <input type="text" class="form-control" name="description" />
+    <br />
+
+    <label for="color"> Color : </label>
+    <input type="text" class="form-control" name="color" />
+    <br />
+
+    <select class="form-control form-control-sm" name="warehouse_id">
+      <option disabled selected> -Select a warehouse- </option>
+      {% for warehouse in warehouses %}
+      <option value="{{warehouse.warehouse_id}}">{{warehouse.location}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

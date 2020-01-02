@@ -18,9 +18,11 @@ def after_request(response):
     return response
 
 # for migrate.py, `flask migrate` to run
-@app.cli.command()
+@app.cli.command(short_help='Migrate Database')
 def migrate():
     db.evolve(ignore_tables={'base_model'})
+
+
 
 @app.route('/')
 def index():
@@ -108,13 +110,22 @@ def warehouse_new():
 @app.route('/warehouse/create', methods=['POST'])
 def warehouse_create():
     connected_st = Store.get_or_none(Store.store_id == request.form['store_id'])
+
+    if not connected_st:
+        flash('Selected store does not exist, please create a store first', 'danger')
+        return redirect(url_for('warehouse_new'))
+
     new_wh = Warehouse(location=request.form['location'], store=connected_st)
+
     if new_wh.save():
         flash('Warehouse Successfully created!', "success")
         return redirect(url_for('warehouses_list'))
     else:
         flash('Please check your internet connection and try again', 'danger')
         return render_template('warehouse.html')
+
+
+
 
 # read
 @app.route('/warehouses', methods=['GET'])
@@ -157,10 +168,56 @@ def warehouse_update(id):
 
 
 
+# ====================== PRODUCT ======================
+
+
+# create
+@app.route('/product/new', methods=['GET'])
+def product_new():
+    warehouses = Warehouse.select()
+    return render_template('product.html', warehouses=warehouses)
+
+
+@app.route('/product/create', methods=['POST'])
+def product_create():
+    
+    connected_wh = Warehouse.get_or_none(Warehouse.warehouse_id == request.form['warehouse_id'])
+
+    if not connected_wh:
+        flash('Selected warehouse does not exist, please create a warehouse first', 'danger')
+        return redirect(url_for('product_new'))
+
+    new_prod = Product(name=request.form['name'], description=request.form['description'], color=request.form['color'], warehouse=connected_wh)
+
+    if new_prod.save():
+        flash('Product Successfully created!', "success")
+        return redirect(url_for('products_list'))
+    else:
+        flash('Please check your internet connection and try again', 'danger')
+        return render_template('product.html')
+
+
+
+# read
+@app.route('/products', methods=['GET'])
+def products_list():
+    products = Product.select()
+    return render_template('products.html', products = products)
+
+# delete
+
+# update
 
 
 
 
+
+
+# # read
+# @app.route('/warehouses', methods=['GET'])
+# def warehouses_list():
+#     warehouses = Warehouse.select()
+#     return render_template('warehouses.html', warehouses = warehouses)
 
 
 if __name__ == "__main__":

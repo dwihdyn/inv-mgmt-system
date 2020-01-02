@@ -32,6 +32,6 @@ class Warehouse(BaseModel):
 class Product(BaseModel):
     product_id = pw.AutoField()
     name = pw.CharField(index=True)
-    desciption = pw.TextField()
+    description = pw.TextField(null=True)
     color = pw.CharField(null=True)
     warehouse = pw.ForeignKeyField(Warehouse, backref='sel_prod')
